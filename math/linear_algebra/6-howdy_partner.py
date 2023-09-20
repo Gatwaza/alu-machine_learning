@@ -14,6 +14,7 @@ def cat_arrays(arr1, arr2):
     result = arr1 + arr2
     return result
 
+
 if __name__ == "__main__":
     arr1 = [1, 2, 3, 4, 5]
     arr2 = [6, 7, 8]

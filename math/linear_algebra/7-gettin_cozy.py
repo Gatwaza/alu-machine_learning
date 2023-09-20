@@ -26,6 +26,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
 
     return result
 
+
 if __name__ == "__main__":
     mat1 = [[1, 2], [3, 4]]
     mat2 = [[5, 6]]
