@@ -15,7 +15,8 @@ def poly_integral(poly, C=0):
         If f(x) = x^3 + 3x + 5, poly is equal to [5, 3, 0, 1]
 
     Note:
-        - If a coefficient is a whole number, it should be represented as an integer.
+        - If a coefficient is a whole number, 
+        it should be represented as an integer.
         - If poly or C are not valid, return None.
         - The returned list should be as small as possible.
     """
@@ -33,6 +34,7 @@ def poly_integral(poly, C=0):
         result.pop()
 
     return result
+
 
 # Example usage
 poly = [5, 3, 0, 1]
