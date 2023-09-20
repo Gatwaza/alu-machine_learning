@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
-
 """
 This module defines a function to calculate the shape of a numpy.ndarray.
 """
-
-import numpy as np
-
 
 def np_shape(matrix):
     """
@@ -22,4 +18,4 @@ def np_shape(matrix):
         >>> np_shape(matrix)
         (2, 3)
     """
-    return np.shape(matrix)
+    return matrix.shape
