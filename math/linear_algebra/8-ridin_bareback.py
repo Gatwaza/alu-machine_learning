@@ -9,8 +9,9 @@ def mat_mul(mat1, mat2):
         mat2 (list): The second 2D matrix.
 
     Returns:
-        list: A new 2D matrix containing the result of the matrix multiplication.
-              If the two matrices cannot be multiplied, returns None.
+        list: A new 2D matrix containing
+        the result of the matrix multiplication.
+        If the two matrices cannot be multiplied, returns None.
     """
     if len(mat1[0]) != len(mat2):
         return None
