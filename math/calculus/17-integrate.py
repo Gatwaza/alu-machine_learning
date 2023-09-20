@@ -19,20 +19,23 @@ def poly_integral(poly, C=0):
         - If poly or C are not valid, return None.
         - The returned list should be as small as possible.
     """
-    if not isinstance(poly, list) or not all(isinstance(coeff, int) for coeff in poly) or not isinstance(C, int):
+    if not isinstance(poly, list) or not all(isinstance(coeff, (int, float)) for coeff in poly) or not isinstance(C, int):
         return None
-    
-    result = [0]
-    for i, coeff in enumerate(poly, 1):
-        new_coeff = coeff // i
-        if new_coeff != 0:
-            result.append(new_coeff)
-    
-    result[0] = C
-    
+
+    result = [C]
+    for i, coeff in enumerate(poly):
+        if not isinstance(coeff, int):
+            coeff = round(coeff)
+        integral_coeff = coeff / (i + 1)
+        result.append(integral_coeff)
+
+    while result[-1] == 0 and len(result) > 1:
+        result.pop()
+
     return result
 
-# Testing the function
-if __name__ == "__main__":
-    poly = [5, 3, 0, 1]
-    print(poly_integral(poly))
+# Example usage
+poly = [5, 3, 0, 1]
+C = 0
+integral_poly = poly_integral(poly, C)
+print(integral_poly)
