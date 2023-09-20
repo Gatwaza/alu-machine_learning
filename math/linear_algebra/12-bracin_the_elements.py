@@ -8,14 +8,15 @@ This module defines a function to perform element-wise
 def np_elementwise(mat1, mat2):
     """
     Perform element-wise
-	 addition, subtraction, multiplication, and division.
+         addition, subtraction, multiplication, and division.
 
     Args:
         mat1 (numpy.ndarray): First input array.
         mat2 (numpy.ndarray): Second input array.
 
     Returns:
-        tuple of numpy.ndarray: A tuple containing the element-wise sum, difference,
+        tuple of numpy.ndarray:
+         A tuple containing the element-wise sum, difference,
         product, and quotient, respectively.
 
     Example:
