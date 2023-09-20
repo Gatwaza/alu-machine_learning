@@ -1,22 +1,17 @@
 #!/usr/bin/env python3
-import numpy as np
-
-
 def np_transpose(matrix):
     """
     Transpose the input matrix.
 
     Args:
-        matrix (numpy.ndarray): Input array.
+        matrix (list of lists): Input array.
 
     Returns:
-        numpy.ndarray: Transposed array.
+        list of lists: Transposed array.
 
     Example:
-        >>> matrix = np.array([[1, 2, 3], [4, 5, 6]])
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
         >>> np_transpose(matrix)
-        array([[1, 4],
-               [2, 5],
-               [3, 6]])
+        [[1, 4], [2, 5], [3, 6]]
     """
-    return np.transpose(matrix)
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
