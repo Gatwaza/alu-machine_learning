@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+This module defines a function that concatenates two matrices.
+"""
+
 
 def cat_matrices2D(mat1, mat2, axis=0):
     """
@@ -7,11 +11,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
     Args:
         mat1 (list): The first 2D matrix.
         mat2 (list): The second 2D matrix.
-        axis (int): The axis along which to concatenate (0 for rows, 1 for columns). Default is 0.
+        axis (int): The axis along which to concatenate
+        (0 for rows, 1 for columns). Default is 0.
 
     Returns:
-        list: A new 2D matrix containing the concatenated matrices along the specified axis.
-              If the two matrices cannot be concatenated, returns None.
+        list: A new 2D matrix containing the concatenated, 
+        matrices along the specified axis.
+        If the two matrices cannot be concatenated, returns None.
     """
     if axis == 0:
         if len(mat1[0]) != len(mat2[0]):
