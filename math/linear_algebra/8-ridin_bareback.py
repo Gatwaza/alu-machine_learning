@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+This module defines a function to multiply a matrix.
+"""
+
 
 def mat_mul(mat1, mat2):
     """
