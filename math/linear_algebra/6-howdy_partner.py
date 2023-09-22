@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Function that concatenates two arrays.
+"""
+
 
 def cat_arrays(arr1, arr2):
     """
@@ -9,7 +13,8 @@ def cat_arrays(arr1, arr2):
         arr2 (list): The second array.
 
     Returns:
-        list: A new list containing the elements of arr1 followed by the elements of arr2.
+        list: A new list containing
+        the elements of arr1 followed by the elements of arr2.
     """
     result = arr1 + arr2
     return result
