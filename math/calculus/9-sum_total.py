@@ -24,7 +24,7 @@ def summation_i_squared(n):
         >>> summation_i_squared(5)
         55
     """
-    if isinstance(n, int) and n > 0:
-        return (n * (n + 1) * (2*n + 1)) // 6
-    else:
-        raise ValueError("n must be a positive integer.")
+    if not isinstance(n, int) or n < 1:
+        return None
+
+    return n*(n+1)*(2*n+1)//6
