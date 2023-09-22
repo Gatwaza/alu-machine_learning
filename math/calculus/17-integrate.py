@@ -10,16 +10,17 @@ def poly_integral(poly, C=0):
 
     Args:
         poly (list): List of coefficients representing a polynomial.
-                     The index of the list represents, 
-                     the power of x that the coefficient belongs to.
+                    The index of the list represents. 
+                    the power of x that the coefficient belongs to.
         C (int, optional): Integration constant. Default is 0.
 
     Returns:
         list: A new list of coefficients representing, 
-              the integral of the polynomial.
+            the integral of the polynomial.
 
     Raises:
-        TypeError: If poly is not a list of integers or if C is not an integer.
+        TypeError: If poly is not a list or if any coefficient is not 
+        an integer or float, or if C is not an integer.
 
     Example:
         >>> poly_integral([5, 3, 0, 1], 2)
