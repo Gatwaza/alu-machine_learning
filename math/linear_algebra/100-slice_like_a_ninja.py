@@ -30,6 +30,10 @@ def np_slice(matrix, axes={}):
             start, stop = slice_range
             if start is not None or stop is not None:
                 result = [row[start:stop] for row in result]
+        elif len(slice_range) == 3:
+            start, stop, step = slice_range
+            if start is not None or stop is not None or step is not None:
+                result = [row[start:stop:step] for row in result]
 
     return result
 
