@@ -15,7 +15,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
         (0 for rows, 1 for columns). Default is 0.
 
     Returns:
-        list: A new 2D matrix containing the concatenated, 
+        list: A new 2D matrix containing the concatenated,
         matrices along the specified axis.
         If the two matrices cannot be concatenated, returns None.
     """
