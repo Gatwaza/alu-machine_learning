@@ -26,11 +26,14 @@ def poly_integral(poly, C=0):
         >>> poly_integral([5, 3, 0, 1], 2)
         [2, 0, 1.5, 0, 0.25]
     """
+    # Check if poly is a list of integers or
+    # floats, and C is an integer or float
     if not isinstance(poly, list) or \
             not all(isinstance(coef, (int, float)) for coef in poly) or \
             not isinstance(C, (int, float)):
         return None
 
+    # Handle case where poly contains only a constant
     if len(poly) == 1 and poly[0] == 0:
         return [C]
 
