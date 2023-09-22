@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Function that calculates summation of i squared
+"""
+
+
 def summation_i_squared(n):
     """
     Calculates the sum of squares of the first n natural numbers.

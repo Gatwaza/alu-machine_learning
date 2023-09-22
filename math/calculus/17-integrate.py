@@ -35,7 +35,10 @@ def poly_integral(poly, C=0):
     while result and result[-1] == 0:
         result.pop()
 
-    return result
+    # Handle formatting for integers
+    formatted_result = ['{:.1f}'.format(x) if isinstance(x, float) else int(x) for x in result]
+
+    return formatted_result
 
 if __name__ == "__main__":
     poly = [5, 3, 0, 1]
