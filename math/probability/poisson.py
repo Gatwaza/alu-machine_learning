@@ -10,11 +10,13 @@ class Poisson:
 
         Args:
             data (list, optional): List of data points. Defaults to None.
-            lambtha (float, optional): Expected number of occurrences. Defaults to 1.0.
+            lambtha (float, optional):
+            Expected number of occurrences. Defaults to 1.0.
 
         Raises:
             ValueError: If lambtha is not a positive value or equals to 0.
-            TypeError: If data is not a list or contains less than two data points.
+            TypeError: If data is not a list or
+            contains less than two data points.
         """
         if lambtha <= 0:
             raise ValueError("lambtha must be a positive value")
@@ -28,4 +30,3 @@ class Poisson:
                 raise ValueError("data must contain multiple values")
 
             self.lambtha = sum(data) / len(data)
-
