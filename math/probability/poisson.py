@@ -50,4 +50,8 @@ class Poisson:
         if k < 0:
             return 0
         else:
-            return (self.lambtha ** k) * (2.7182818285 ** -self.lambtha)
+            numerator = (self.lambtha ** k) * (2.7182818285 ** -self.lambtha)
+            denominator = 1
+            for i in range(1, k + 1):
+                denominator *= i
+            return numerator / denominator
