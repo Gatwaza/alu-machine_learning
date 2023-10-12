@@ -56,23 +56,25 @@ class Poisson:
                 denominator *= i
             return numerator / denominator
 
-    def cdf(self, k):
-        """
-        Calculate the value of the CDF for a given number of “successes”.
 
-        Args:
-            k (int): The number of “successes”.
+def cdf(self, k):
+    """
+    Calculate the value of the CDF for a given number of “successes”.
 
-        Returns:
-            float: The CDF value for k.
-        """
-        k = int(k)
-        if k < 0:
-            return 0
-        else:
-            import math
-            cdf_value = 0
-            for i in range(k + 1):
-                cdf_value += (self.lambtha ** i) * \
-                    (2.7182818285 ** -self.lambtha) / math.factorial(i)
-            return cdf_value
+    Args:
+        k (int): The number of “successes”.
+
+    Returns:
+        float: The CDF value for k.
+    """
+    k = int(k)
+    if k < 0:
+        return 0
+    else:
+        cdf_value = 0
+        for i in range(k + 1):
+            term = 1
+            for j in range(1, i + 1):
+                term *= self.lambtha / j
+            cdf_value += term * (2.7182818285 ** -self.lambtha)
+        return cdf_value
