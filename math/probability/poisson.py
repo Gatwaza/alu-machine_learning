@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 class Poisson:
     """
     Class representing a Poisson distribution.
