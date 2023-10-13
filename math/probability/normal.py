@@ -74,5 +74,10 @@ class Normal:
         Returns:
             float: The PDF value for x.
         """
+        pi_approx = 3.1415926536
+        e_approx = 2.7182818285
+        part1 = 1 / (self.stddev * (e_approx ** 0.5 * pi_approx))
         exponent = -(x - self.mean) ** 2 / (2 * self.stddev ** 2)
-        return (1 / (self.stddev * (2.7182818285 ** 0.5 * 3.1415926536))) * (2.7182818285 ** exponent)
+        part2 = (e_approx ** exponent)
+
+        return part1 * part2
