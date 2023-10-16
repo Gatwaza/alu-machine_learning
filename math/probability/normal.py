@@ -79,8 +79,6 @@ class Normal:
         exponent = -(x - self.mean) ** 2 / (2 * self.stddev ** 2)
         return constant * (2.7182818285 ** exponent)
 
-
-
     def cdf(self, x):
         """
         Calculate the value of the CDF for a given x-value.
