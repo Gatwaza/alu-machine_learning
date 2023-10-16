@@ -66,7 +66,8 @@ class Normal:
 
     def pdf(self, x):
         """
-        Calculate the value of the PDF for a given x-value.
+        Calculate the value of the Probability Density Function (PDF)
+        for a given x-value.
 
         Args:
             x (float): The x-value.
@@ -74,13 +75,11 @@ class Normal:
         Returns:
             float: The PDF value for x.
         """
-        pi_approx = 3.1415926536
-        e_approx = 2.7182818285
-        part1 = 1 / (self.stddev * (e_approx ** 0.5 * pi_approx))
+        constant = 1 / (self.stddev * (2 * 3.1415926536) ** 0.5)
         exponent = -(x - self.mean) ** 2 / (2 * self.stddev ** 2)
-        part2 = (e_approx ** exponent)
+        return constant * (2.7182818285 ** exponent)
 
-        return part1 * part2
+
 
     def cdf(self, x):
         """
