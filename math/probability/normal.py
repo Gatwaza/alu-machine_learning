@@ -81,7 +81,8 @@ class Normal:
 
     def cdf(self, x):
         """
-        Calculate the value of the CDF for a given x-value.
+        Calculate the value of the Cumulative Distribution Function (CDF)
+        for a given x-value.
 
         Args:
             x (float): The x-value.
@@ -89,28 +90,22 @@ class Normal:
         Returns:
             float: The CDF value for x.
         """
-        z = self.z_score(x)
-        return (1 + self.error_function(z / (2 ** 0.5))) / 2
+        constant = 0.5 * (
+            1 + self.er((x - self.mean) / (self.stddev * (2 ** 0.5)))
+        )
+        return constant
 
-    def error_function(self, x):
+    def er(self, x):
         """
-        Approximation of the error function.
+        Approximate the error function using a given polynomial.
 
         Args:
-            x (float): The value for which to approximate the error function.
+            x (float): The x-value.
 
         Returns:
             float: The approximate value of the error function.
         """
-        t = 1 / (1 + 0.5 * abs(x))
-        result = t * 2.7182818285 ** (-x * x - 1.26551223 + t *
-                                      (1.00002368 + t *
-                                       (0.37409196 + t *
-                                        (0.09678418 +
-                                         t * (-0.18628806 + t *
-                                              (0.27886807 + t *
-                                               (-1.13520398 + t *
-                                                (1.48851587 + t *
-                                                 (-0.82215223 +
-                                                  t * 0.17087277)))))))))
-        return 1 - result if x >= 0 else result
+        return (
+            2 / (3.1415926536 ** 0.5) *
+            (x - (x ** 3) / 3 + (x ** 5) / 10 - (x ** 7) / 42 + (x ** 9) / 216)
+        )
