@@ -25,7 +25,5 @@ def poly_integral(poly, C=0):
             integral[i] = int(integral[i])
 
     return integral[::-1]
-
-
 # poly = [0]
 # print(poly_integral(poly, C=9))
