@@ -1,39 +1,37 @@
 #!/usr/bin/env python3
-
 """
-This module defines a function to slice a matrix along specific axes.
+Slice numpy arrays
 """
+import numpy as np
 
 
-def np_slice(matrix, axes={}):
-    """
-    Slices a matrix along specific axes.
+def np_slice(matrix, axes=None):
+    """Slices a matrix along specific axes
 
     Args:
-        matrix (numpy.ndarray): Input matrix.
-        axes (dict): Dictionary where the key is an axis to slice along and
-                     the value is a tuple representing the slice to make along that axis.
+        matrix (numpy.ndarray): matrix to slice
+        axes (dict): dictionary where the key is an axis to slice along and
+                     the value is a tuple representing the slice to make along
+                     that axis
 
     Returns:
-        numpy.ndarray: Sliced matrix.
+        numpy.ndarray: the sliced matrix
     """
-    # Copy the original matrix to avoid modifying it
-    result = [row[:] for row in matrix]
-
-    # Apply the specified slices along the specified axes
-    for axis, slice_range in axes.items():
-        if len(slice_range) == 1:
-            slice_range = slice_range[0]
-            if slice_range is not None:
-                result = result[slice(slice_range)]
-        elif len(slice_range) == 2:
-            start, stop = slice_range
-            if start is not None or stop is not None:
-                result = [row[start:stop] for row in result]
-        elif len(slice_range) == 3:
-            start, stop, step = slice_range
-            if start is not None or stop is not None or step is not None:
-                result = [row[start:stop:step] for row in result]
-
-    return result
-
+    if axes is None:
+        return matrix[...]
+    slices = []
+    for i in range(matrix.ndim):
+        if i in axes:
+            slices.append(slice(*axes[i]))
+        else:
+            slices.append(slice(None))
+    return matrix[tuple(slices)]
+  
+mat1 = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+print(np_slice(mat1, axes={1: (1, 3)}))
+print(mat1)
+# mat2 = np.array([[[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
+#                  [[11, 12, 13, 14, 15], [16, 17, 18, 19, 20]],
+#                  [[21, 22, 23, 24, 25], [26, 27, 28, 29, 30]]])
+# print(np_slice(mat2, axes={0: (2,), 2: (None, None, -2)}))
+# print(mat2)
