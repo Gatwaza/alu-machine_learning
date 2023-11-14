@@ -19,27 +19,32 @@ class Binomial:
             p (float, optional): Probability of success. Defaults to 0.5.
 
         Raises:
-            ValueError: If n is not a positive
-            value or p is not a valid probability.
-            TypeError: If data is not a list or
-            contains less than two data points.
+            ValueError: If n is not a positive integer or p is not in the
+                        range (0, 1).
+            TypeError: If data is not a list or contains less than two
+                       data points.
         """
-        if n <= 0:
-            raise ValueError("n must be a positive value")
+        if not isinstance(n, int) or n <= 0:
+            raise ValueError("n must be a positive integer")
 
         if not (0 < p < 1):
             raise ValueError("p must be greater than 0 and less than 1")
 
-        if data is None:
-            self.n = int(n)
-            self.p = float(p)
-        else:
+        if data is not None:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
 
-            self.p = sum(data) / (len(data) * n)
-            self.n = round(sum(data) / self.p)
+            successes = sum(1 for d in data if d == 1)
+            trials = len(data)
+            if trials == 0:
+                p = 0.0
+                n = 1
+            else:
+                p = successes / trials
+                n = round(trials / p)
+                p = successes / n
 
-            self.p = sum(data) / (len(data) * self.n)
+        self.n = n
+        self.p = float(p)
