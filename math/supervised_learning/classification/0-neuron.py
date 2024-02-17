@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3
 """Defines a single neuron performing binary classification"""
 import numpy as np
 
