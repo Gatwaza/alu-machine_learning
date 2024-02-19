@@ -23,7 +23,6 @@ class Neuron:
             __A: The activated output of the neuron (prediction),
                 initialized to 0.
         """
-        import numpy as np
 
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
@@ -60,7 +59,6 @@ class Neuron:
         Returns:
             numpy.ndarray: The activated output of the neuron.
         """
-        import numpy as np
 
         Z = np.dot(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-Z))
@@ -76,7 +74,6 @@ class Neuron:
         Returns:
             float: The cost of the model.
         """
-        import numpy as np
 
         m = Y.shape[1]
         cost = -np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)) / m
@@ -94,7 +91,6 @@ class Neuron:
                    - numpy.ndarray: The predicted labels with shape (1, m).
                    - float: The cost of the network.
         """
-        import numpy as np
 
         A = self.forward_prop(X)
         predictions = np.where(A >= 0.5, 1, 0)
