@@ -45,6 +45,21 @@ class Neuron:
         self.__A = 1 / (1 + np.exp(-z))
         return self.__A
 
+    def cost(self, Y, A):
+        """Calculates the cost of the model using logistic regression
+
+        Args:
+            Y (numpy.ndarray): Correct labels with shape (1, m).
+            A (numpy.ndarray): Activated output of the neuron
+                                 with shape (1, m).
+
+        Returns:
+            float: The cost of the model.
+        """
+        m = Y.shape[1]
+        cost = -np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)) / m
+        return cost
+
     @property
     def W(self):
         """Getter function for __W"""
@@ -64,7 +79,7 @@ class Neuron:
 if __name__ == "__main__":
     import numpy as np
 
-    Neuron = __import__('2-neuron').Neuron
+    Neuron = __import__('3-neuron').Neuron
 
     lib_train = np.load('../data/Binary_Train.npz')
     X_3D, Y = lib_train['X'], lib_train['Y']
@@ -73,4 +88,5 @@ if __name__ == "__main__":
     np.random.seed(0)
     neuron = Neuron(X.shape[0])
     A = neuron.forward_prop(X)
-    print(A)
+    cost = neuron.cost(Y, A)
+    print(cost)

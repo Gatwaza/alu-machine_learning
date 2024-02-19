@@ -2,8 +2,10 @@
 """Defines a single neuron performing binary classification"""
 import numpy as np
 
+
 class Neuron:
     """Neuron class"""
+
     def __init__(self, nx):
         """Class constructor
 
@@ -15,15 +17,17 @@ class Neuron:
             ValueError: If nx is less than 1.
 
         Attributes:
-            __W: The weights vector for the neuron, initialized using a random normal distribution.
+            __W: The weights vector for the neuron,
+                initialized using a random normal distribution.
             __b: The bias for the neuron, initialized to 0.
-            __A: The activated output of the neuron (prediction), initialized to 0.
+            __A: The activated output of the neuron (prediction),
+                initialized to 0.
         """
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be positive")
-        
+
         self.__W = np.random.randn(nx).reshape(1, nx)
         self.__b = 0
         self.__A = 0
@@ -43,6 +47,7 @@ class Neuron:
         """Getter function for __A"""
         return self.__A
 
+
 if __name__ == "__main__":
     import numpy as np
 
@@ -57,5 +62,7 @@ if __name__ == "__main__":
     print(neuron.W)
     print(neuron.b)
     print(neuron.A)
-    neuron.__A = 10  # Note: This line won't change the private attribute __A. It's just setting a new attribute __A.
+    # Note: This line won't change the private attribute __A. It's just
+    # setting a new attribute __A.
+    neuron.__A = 10
     print(neuron.A)
