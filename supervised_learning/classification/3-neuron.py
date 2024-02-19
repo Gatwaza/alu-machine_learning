@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Neuron class performing binary classification"""
 
@@ -91,4 +92,3 @@ if __name__ == "__main__":
     Y = np.array([[0, 1, 0]])
     A = neuron.forward_prop(X)
     print(neuron.cost(Y, A))
-
