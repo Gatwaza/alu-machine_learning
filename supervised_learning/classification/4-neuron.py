@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Neuron class performing binary classification"""
 
@@ -108,4 +109,3 @@ if __name__ == "__main__":
                   [0.5, 0.6, 0.7]])
     Y = np.array([[0, 1, 0]])
     print(neuron.evaluate(X, Y))
-
