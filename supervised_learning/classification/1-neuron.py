@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class Neuron:
     """Neuron class performing binary classification"""
 
@@ -51,4 +53,3 @@ if __name__ == "__main__":
     print(neuron.W)
     print(neuron.b)
     print(neuron.A)
-
