@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""Defines a single neuron performing binary classification"""
+
+import numpy as np
+
 
 class Neuron:
     """Neuron class performing binary classification"""
@@ -20,7 +24,6 @@ class Neuron:
             __A: The activated output of the neuron (prediction),
                 initialized to 0.
         """
-        import numpy as np  # Importing numpy here
 
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
