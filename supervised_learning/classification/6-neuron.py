@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Neuron class performing binary classification"""
 
@@ -23,7 +24,6 @@ class Neuron:
             __A: The activated output of the neuron (prediction),
                 initialized to 0.
         """
- 
 
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
@@ -60,7 +60,6 @@ class Neuron:
         Returns:
             numpy.ndarray: The activated output of the neuron.
         """
-     
 
         Z = np.dot(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-Z))
@@ -76,7 +75,6 @@ class Neuron:
         Returns:
             float: The cost of the model.
         """
-   
 
         m = Y.shape[1]
         cost = -np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)) / m
@@ -94,7 +92,6 @@ class Neuron:
                    - numpy.ndarray: The predicted labels with shape (1, m).
                    - float: The cost of the network.
         """
-      
 
         A = self.forward_prop(X)
         predictions = np.where(A >= 0.5, 1, 0)
@@ -113,7 +110,6 @@ class Neuron:
         Returns:
             None
         """
-     
 
         m = Y.shape[1]
         dz = A - Y
@@ -137,10 +133,10 @@ class Neuron:
 
         Returns:
             tuple: A tuple containing two elements:
-                   - numpy.ndarray: The predicted labels with shape (1, m) after training.
+                   - numpy.ndarray: The predicted labels with
+                                         shape (1, m) after training.
                    - float: The cost of the network after training.
         """
-    
 
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
@@ -168,4 +164,3 @@ if __name__ == "__main__":
                   [0.5, 0.6, 0.7]])
     Y = np.array([[0, 1, 0]])
     print(neuron.train(X, Y))
-
