@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+"""Neural network"""
+
 import numpy as np
 """Neural network with hidden layer perfoming binary classification """
 
