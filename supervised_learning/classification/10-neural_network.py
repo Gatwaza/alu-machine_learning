@@ -6,7 +6,7 @@ import numpy as np
 
 class NeuralNetwork:
     """Neural Network class with one hidden,
-		 layer performing binary classification"""
+                 layer performing binary classification"""
 
     def __init__(self, nx, nodes):
         """Class constructor
@@ -92,7 +92,7 @@ class NeuralNetwork:
             tuple: A tuple containing two elements:
                    - numpy.ndarray: The activated output for the hidden layer.
                    - numpy.ndarray: The activated output for
-					 the output neuron (prediction).
+                                         the output neuron (prediction).
         """
         Z1 = np.dot(self.__W1, X) + self.__b1
         self.__A1 = self.sigmoid(Z1)
