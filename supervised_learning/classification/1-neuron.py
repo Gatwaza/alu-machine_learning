@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Defines a single neuron performing binary classification"""
+
 import numpy as np
 
 
 class Neuron:
-    """Neuron class"""
+    """Neuron class performing binary classification"""
 
     def __init__(self, nx):
         """Class constructor
@@ -23,6 +24,7 @@ class Neuron:
             __A: The activated output of the neuron (prediction),
                 initialized to 0.
         """
+
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
@@ -49,20 +51,8 @@ class Neuron:
 
 
 if __name__ == "__main__":
-    import numpy as np
-
-    Neuron = __import__('1-neuron').Neuron
-
-    lib_train = np.load('../data/Binary_Train.npz')
-    X_3D, Y = lib_train['X'], lib_train['Y']
-    X = X_3D.reshape((X_3D.shape[0], -1)).T
-
-    np.random.seed(0)
-    neuron = Neuron(X.shape[0])
+    # Testing the Neuron class
+    neuron = Neuron(5)
     print(neuron.W)
     print(neuron.b)
-    print(neuron.A)
-    # Note: This line won't change the private attribute __A. It's just
-    # setting a new attribute __A.
-    neuron.__A = 10
     print(neuron.A)

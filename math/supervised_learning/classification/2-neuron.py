@@ -21,7 +21,7 @@ class Neuron:
                 initialized using a random normal distribution.
             __b: The bias for the neuron, initialized to 0.
             __A: The activated output of the neuron (prediction),
-                initialized to 0.
+                 initialized to 0.
         """
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
@@ -31,6 +31,19 @@ class Neuron:
         self.__W = np.random.randn(nx).reshape(1, nx)
         self.__b = 0
         self.__A = 0
+
+    def forward_prop(self, X):
+        """Calculates the forward propagation of the neuron
+
+        Args:
+            X (numpy.ndarray): Input data with shape (nx, m).
+
+        Returns:
+            numpy.ndarray: The activated output (__A) of the neuron.
+        """
+        z = np.dot(self.__W, X) + self.__b
+        self.__A = 1 / (1 + np.exp(-z))
+        return self.__A
 
     @property
     def W(self):
@@ -51,7 +64,7 @@ class Neuron:
 if __name__ == "__main__":
     import numpy as np
 
-    Neuron = __import__('1-neuron').Neuron
+    Neuron = __import__('2-neuron').Neuron
 
     lib_train = np.load('../data/Binary_Train.npz')
     X_3D, Y = lib_train['X'], lib_train['Y']
@@ -59,10 +72,5 @@ if __name__ == "__main__":
 
     np.random.seed(0)
     neuron = Neuron(X.shape[0])
-    print(neuron.W)
-    print(neuron.b)
-    print(neuron.A)
-    # Note: This line won't change the private attribute __A. It's just
-    # setting a new attribute __A.
-    neuron.__A = 10
-    print(neuron.A)
+    A = neuron.forward_prop(X)
+    print(A)
