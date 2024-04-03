@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
+"""Retrieves a list of starships """
+
 import requests
+
 
 def availableShips(passengerCount):
     """
@@ -20,7 +23,7 @@ def availableShips(passengerCount):
     while url:
         response = requests.get(url)
         data = response.json()
-        
+
         for ship in data['results']:
             if ship['passengers'].isdigit() and int(ship['passengers']) >= passengerCount:
                 ships.append(ship['name'])
@@ -28,6 +31,7 @@ def availableShips(passengerCount):
         url = data['next']
 
     return ships
+
 
 if __name__ == "__main__":
     passengerCount = int(input("Enter the number of passengers: "))
