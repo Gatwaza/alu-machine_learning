@@ -23,7 +23,7 @@ class NST:
         model - the Keras model used to calculate cost
         """
         # tensorflow executes eagerly
-        #tf.enable_eager_execution()
+        # tf.enable_eager_execution()
 
         error = "style_image must be a numpy.ndarray with shape (h, w, 3)"
         if not isinstance(style_image, np.ndarray):
