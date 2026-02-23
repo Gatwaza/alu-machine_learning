@@ -39,39 +39,47 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
         F = np.zeros((M, T))
         F[:, 0] = Initial[:, 0] * Emission[:, Observations[0]]
         for t in range(1, T):
-            F[:, t] = np.matmul(F[:, t - 1], Transition) * \
+            F[:, t] = (
+                np.matmul(F[:, t - 1], Transition) *
                 Emission[:, Observations[t]]
+            )
 
         B = np.zeros((M, T))
         B[:, T - 1] = 1
         for t in range(T - 2, -1, -1):
             B[:, t] = np.matmul(
-                Transition, Emission[:, Observations[t + 1]] * B[:, t + 1]
+                Transition,
+                Emission[:, Observations[t + 1]] * B[:, t + 1]
             )
 
-        xi = np.zeros((M, M, T - 1))
-        for t in range(T - 1):
-            denom = np.matmul(
-                np.matmul(F[:, t], Transition) *
-                Emission[:, Observations[t + 1]],
-                B[:, t + 1]
-            )
-            for i in range(M):
-                xi[i, :, t] = (
-                    F[i, t] * Transition[i] *
-                    Emission[:, Observations[t + 1]] * B[:, t + 1]
-                ) / denom
+        # xi: shape (M, M, T-1)
+        # xi[i, j, t] = F[i,t] * T[i,j] * E[j, obs[t+1]] * B[j, t+1]
+        F_t = F[:, :T - 1]
+        B_t1 = B[:, 1:T]
+        E_t1 = Emission[:, Observations[1:T]]
+
+        # numerator: (M, M, T-1)
+        xi = (F_t[:, np.newaxis, :] *
+              Transition[:, :, np.newaxis] *
+              (E_t1 * B_t1)[np.newaxis, :, :])
+
+        denom = np.sum(xi, axis=(0, 1), keepdims=True)
+        xi = xi / denom
 
         gamma = np.sum(xi, axis=1)
-        Transition = np.sum(xi, axis=2) / np.sum(gamma, axis=1, keepdims=True)
 
-        gamma_full = np.concatenate(
-            (gamma, np.sum(xi[:, :, T - 2], axis=0, keepdims=True).T), axis=1
-        )
-        denom_e = np.sum(gamma_full, axis=1, keepdims=True)
+        # include last time step for gamma
+        last = np.sum(xi[:, :, T - 2], axis=1, keepdims=True)
+        gamma_full = np.concatenate((gamma, last), axis=1)
+
+        # M-step: update Transition
+        Transition = (np.sum(xi, axis=2) /
+                      np.sum(gamma, axis=1, keepdims=True))
+
+        # M-step: update Emission
         for k in range(N):
-            Emission[:, k] = np.sum(
-                gamma_full[:, Observations == k], axis=1
-            ) / denom_e[:, 0]
+            mask = Observations == k
+            Emission[:, k] = (np.sum(gamma_full[:, mask], axis=1) /
+                              np.sum(gamma_full, axis=1))
 
     return Transition, Emission
