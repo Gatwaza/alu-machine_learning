@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Module for computing steady state probabilities of a regular Markov chain."""
+"""Module for computing steady state probabilities of a regular
+Markov chain."""
 import numpy as np
 
 
