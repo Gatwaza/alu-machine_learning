@@ -15,6 +15,6 @@ def pca(X, var=0.95):
     """
     _, s, Vt = np.linalg.svd(X, full_matrices=False)
     cumvar = np.cumsum(s ** 2) / np.sum(s ** 2)
-    nd = int(np.argmax(cumvar >= var)) + 1
-    W = Vt[:nd].T
+    nd = np.argmax(cumvar >= var) + 1
+    W = Vt[:nd + 1].T
     return W
