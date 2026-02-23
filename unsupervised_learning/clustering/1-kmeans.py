@@ -5,8 +5,6 @@ Module for performing K-means clustering.
 
 import numpy as np
 
-initialize = __import__('0-initialize').initialize
-
 
 def kmeans(X, k, iterations=1000):
     """
@@ -34,9 +32,10 @@ def kmeans(X, k, iterations=1000):
     if k > n:
         return None, None
 
-    C = initialize(X, k)
-    if C is None:
-        return None, None
+    minimum = np.min(X, axis=0)
+    maximum = np.max(X, axis=0)
+
+    C = np.random.uniform(minimum, maximum, (k, d))
 
     for _ in range(iterations):
 
@@ -53,12 +52,10 @@ def kmeans(X, k, iterations=1000):
             points = X[clss == j]
 
             if points.shape[0] == 0:
-                minimum = np.min(X, axis=0)
-                maximum = np.max(X, axis=0)
                 new_C[j] = np.random.uniform(
                     minimum,
                     maximum,
-                    size=(d,)
+                    (d,)
                 )
             else:
                 new_C[j] = np.mean(points, axis=0)
