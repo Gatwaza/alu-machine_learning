@@ -38,7 +38,8 @@ def forward(Observation, Emission, Transition, Initial):
     F[:, 0] = Initial[:, 0] * Emission[:, Observation[0]]
 
     for t in range(1, T):
-        F[:, t] = np.matmul(F[:, t - 1], Transition) * Emission[:, Observation[t]]
+        transition_product = np.matmul(F[:, t - 1], Transition)
+        F[:, t] = transition_product * Emission[:, Observation[t]]
 
     P = np.sum(F[:, T - 1])
     return P, F
