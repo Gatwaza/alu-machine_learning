@@ -1,67 +1,58 @@
 #!/usr/bin/env python3
-"""
-Checker-compliant K-means clustering with max two loops.
-"""
-
+"""Performs K-means on a dataset"""
 import numpy as np
 
 
 def kmeans(X, k, iterations=1000):
     """
-    Performs K-means clustering on a dataset with at most two loops.
+    Performs K-means clustering
 
-    Parameters:
-    X (numpy.ndarray): shape (n, d) dataset
-    k (int): number of clusters
-    iterations (int): maximum number of iterations
+    Args:
+        X: numpy.ndarray of shape (n, d) containing the dataset
+        k: number of clusters
+        iterations: maximum number of iterations
 
     Returns:
-    C (numpy.ndarray): shape (k, d) centroids
-    clss (numpy.ndarray): shape (n,) cluster indices
-    or (None, None) on failure
+        C: numpy.ndarray of shape (k, d) containing centroid means
+        clss: numpy.ndarray of shape (n,) containing cluster indices
     """
-    if (not isinstance(X, np.ndarray) or len(X.shape) != 2 or
-            not isinstance(k, int) or k <= 0 or
-            not isinstance(iterations, int) or iterations <= 0):
+    if not isinstance(X, np.ndarray) or X.size == 0 or k <= 0:
         return None, None
 
     n, d = X.shape
-    if k > n:
-        return None, None
 
-    # Compute min/max
-    minimum = np.min(X, axis=0)
-    maximum = np.max(X, axis=0)
+    # Initialize centroids with uniform distribution
+    mins = X.min(axis=0)
+    maxs = X.max(axis=0)
+    C = np.random.uniform(mins, maxs, (k, d))  # first uniform
 
-    # Initialize centroids (1st uniform call)
-    C = np.random.uniform(minimum, maximum, (k, d))
+    clss = np.zeros(n, dtype=int)
 
     for _ in range(iterations):
-        # Compute distances and assign clusters
+        # Assign points to closest centroid (no loop)
         distances = np.linalg.norm(X[:, np.newaxis] - C, axis=2)
-        clss = np.argmin(distances, axis=1)
+        new_clss = np.argmin(distances, axis=1)
 
-        new_C = np.copy(C)
+        # Compute new centroids
+        new_C = np.zeros((k, d))
+        counts = np.zeros(k)
 
-        for j in range(k):  # 2nd loop
-            points = X[clss == j]
-            if points.shape[0] == 0:
-                # Reinitialize empty cluster (2nd uniform call)
-                new_C[j] = np.random.uniform(minimum, maximum, (d,))
+        for idx in range(k):  # loop 1
+            points = X[new_clss == idx]
+            if len(points) == 0:
+                # Reinitialize empty cluster (uniform #2)
+                new_C[idx] = np.random.uniform(mins, maxs, d)
             else:
-                new_C[j] = np.mean(points, axis=0)
+                new_C[idx] = points.mean(axis=0)
+            counts[idx] = len(points)
 
+        # Early stopping if centroids didn't move
         if np.allclose(C, new_C):
             break
+
         C = new_C
+        clss = new_clss
 
-    # Deterministic labeling using only numpy (no extra loops)
-    order = np.argsort(C[:, 0])
-    C = C[order]
-
-    # Create mapping array without vectorize
-    mapping = np.zeros(k, dtype=int)
-    mapping[order] = np.arange(k)
-    clss = mapping[clss]
-
+    # Final cluster assignment
+    clss = np.argmin(np.linalg.norm(X[:, np.newaxis] - C, axis=2), axis=1)
     return C, clss
